@@ -11,15 +11,15 @@ const MovieInfo: React.FC = () => {
     const { currentDisplay } = useMovies();
     const { id } = useParams();
     const { type } = useParams();
-    const [trailerUrl, setTrailerUrl] = useState<string | null>(null);
+    const [trailerUrl, setTrailerUrl] = useState<string | undefined>();
     const [currentTitle, setCurrentTitle] = useState(
         currentDisplay.find((movie) => movie.id == id)
     );
     const titleRef = useRef(null);
     const [isMobile, setIsMobile] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [isTrailerLoading, setIsTrailerLoading] = useState(true);
 
-    // in case a refresh happens and we lose information about the current title
     useEffect(() => {
         if (window.innerWidth < 768) setIsMobile(true);
 
@@ -62,6 +62,7 @@ const MovieInfo: React.FC = () => {
 
     useEffect(() => {
         if (!currentTitle) return;
+        setIsTrailerLoading(true);
         const options = {
             headers: {
                 accept: "application/json",
@@ -88,9 +89,11 @@ const MovieInfo: React.FC = () => {
                         `https://www.youtube.com/embed/${trailer.key}`
                     );
                 }
+                setIsTrailerLoading(false);
             })
             .catch((err) => {
                 alert(err);
+                setIsTrailerLoading(false);
             });
     }, [currentTitle]);
 
@@ -108,7 +111,7 @@ const MovieInfo: React.FC = () => {
                 <i className={`fa-solid fa-caret-left`}></i>
                 <span>Back</span>
             </Link>
-            {!trailerUrl ? (
+            {!isTrailerLoading && !trailerUrl ? (
                 <img
                     src={`https://image.tmdb.org/t/p/${
                         isMobile ? "w500" : "w780"
