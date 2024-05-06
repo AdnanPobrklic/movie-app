@@ -31,7 +31,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
     }, [num]);
 
     const cardStyle = {
-        backgroundImage: `url(https://image.tmdb.org/t/p/w780${src})`,
+        backgroundImage: `url(https://image.tmdb.org/t/p/w342${src})`,
     };
 
     return (

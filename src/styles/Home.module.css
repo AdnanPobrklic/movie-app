@@ -2,8 +2,8 @@
     width: 70%;
     margin: 0px auto;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 300px));
-    gap: 50px 20px;
+    grid-template-columns: repeat(auto-fill, 255px);
+    gap: 50px 15px;
     justify-content: center;
 }
 
