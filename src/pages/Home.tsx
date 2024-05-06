@@ -17,7 +17,6 @@ const Home: React.FC = () => {
     }
 
     const [isAPILoading, setIsAPILoading] = useState<boolean>(true);
-    const { setCurrentDisplay } = useMovies();
     const {
         currentDisplay,
         showTV,
@@ -25,73 +24,41 @@ const Home: React.FC = () => {
         searchValue,
         setSearchValue,
         debouncedSearchValue,
+        setCurrentDisplay,
     } = useMovies();
-    useState<string>("");
     const [noResults, setNoResults] = useState(false);
 
     useEffect(() => {
-        if (debouncedSearchValue.length < 3) {
+        const fetchMovies = async () => {
             setIsAPILoading(true);
-            const url = `https://api.themoviedb.org/3/${
-                showTV ? "tv" : "movie"
-            }/popular?language=en-US&page=1`;
-            const options = {
-                headers: {
-                    accept: "application/json",
-                    Authorization:
-                        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MThlZTQ2YWUyNmZjZDMwZmZhOGYxN2I1ZjAzZWUxMCIsInN1YiI6IjY2MzY4MTM5ODNlZTY3MDEyNDQxNmYzNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.mliKGz8C8ApZk3PQ2PSdXVMl8bET-v8qK--vCmIiBvc",
-                },
-            };
-
-            axios
-                .get(url, options)
-                .then((res) => {
-                    setNoResults(res.data.results.length < 1 ? true : false);
-                    const top10 = res.data.results.slice(0, 10);
-                    setIsAPILoading(false);
-                    setCurrentDisplay(
-                        top10.map((item: Item) => ({
-                            ...item,
-                            vote_average: parseFloat(
-                                item.vote_average.toFixed(2)
-                            ),
-                        }))
-                    );
-                })
-                .catch((err) => console.error("error:" + err));
-        } else {
-            setIsAPILoading(true);
-            const options = {
-                headers: {
-                    accept: "application/json",
-                    Authorization:
-                        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MThlZTQ2YWUyNmZjZDMwZmZhOGYxN2I1ZjAzZWUxMCIsInN1YiI6IjY2MzY4MTM5ODNlZTY3MDEyNDQxNmYzNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.mliKGz8C8ApZk3PQ2PSdXVMl8bET-v8qK--vCmIiBvc",
-                },
-            };
-
-            axios
-                .get(
-                    `https://api.themoviedb.org/3/search/${
-                        showTV ? "tv" : "movie"
-                    }?query=${debouncedSearchValue}&include_adult=false&language=en-US&page=1`,
-                    options
-                )
-                .then((res) => {
-                    setNoResults(res.data.results.length < 1 ? true : false);
-                    const top10 = res.data.results.slice(0, 10);
-                    setIsAPILoading(false);
-                    setCurrentDisplay(
-                        top10.map((item: Item) => ({
-                            ...item,
-                            vote_average: parseFloat(
-                                item.vote_average.toFixed(2)
-                            ),
-                        }))
-                    );
-                })
-                .catch((err) => console.error(err));
-        }
-    }, [showTV, debouncedSearchValue]);
+            let url = '';
+            if (debouncedSearchValue.length < 3) {
+                url = `https://api.themoviedb.org/3/${showTV ? "tv" : "movie"}/popular?language=en-US&page=1`;
+            } else {
+                url = `https://api.themoviedb.org/3/search/${showTV ? "tv" : "movie"}?query=${debouncedSearchValue}&include_adult=false&language=en-US&page=1`;
+            }
+            try {
+                const options = {
+                    headers: {
+                        accept: "application/json",
+                        Authorization:
+                            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MThlZTQ2YWUyNmZjZDMwZmZhOGYxN2I1ZjAzZWUxMCIsInN1YiI6IjY2MzY4MTM5ODNlZTY3MDEyNDQxNmYzNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.mliKGz8C8ApZk3PQ2PSdXVMl8bET-v8qK--vCmIiBvc",
+                    },
+                };
+                const response = await axios.get(url, options);
+                setNoResults(response.data.results.length < 1);
+                const top10 = response.data.results.slice(0, 10);
+                setCurrentDisplay(top10.map((item: Item) => ({
+                    ...item,
+                    vote_average: parseFloat(item.vote_average.toFixed(2))
+                })));
+            } catch (error) {
+                console.error("error:" + error);
+            }
+            setIsAPILoading(false);
+        };
+        fetchMovies();
+    }, [showTV, debouncedSearchValue, setCurrentDisplay]);
 
     const headingRef = useRef(null);
 
