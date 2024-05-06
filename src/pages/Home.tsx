@@ -100,7 +100,7 @@ const Home: React.FC = () => {
 
                     {noResults && (
                         <p className={classes.noResults}>
-                            No results for "{searchValue}"
+                            No results for "{debouncedSearchValue}"
                         </p>
                     )}
                 </section>
