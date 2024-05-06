@@ -7,7 +7,6 @@
     flex-direction: column;
     gap: 50px;
     min-width: 300px;
-    opacity: 0;
 }
 
 .titleContainer h1 {
