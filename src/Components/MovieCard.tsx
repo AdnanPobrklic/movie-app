@@ -1,8 +1,7 @@
-import React from "react";
-import classes from "../styles/MovieCard.module.css";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
-import { useEffect, useRef } from "react";
+import classes from "../styles/MovieCard.module.css";
 
 interface MovieCardProps {
     src: string;
@@ -21,7 +20,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
     id,
     showTV,
 }) => {
-    const cardRef = useRef(null);
+    const cardRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         gsap.fromTo(
@@ -31,16 +30,17 @@ const MovieCard: React.FC<MovieCardProps> = ({
         );
     }, [num]);
 
+    const cardStyle = {
+        backgroundImage: `url(https://image.tmdb.org/t/p/w780${src})`,
+    };
+
     return (
         <div className={classes.movieCard} ref={cardRef}>
             <Link to={`title/${showTV ? "tv" : "movie"}/${id}`}>
-                <div className={classes.cardImageContainer}>
-                    <img
-                        loading="lazy"
-                        src={`https://image.tmdb.org/t/p/w500${src}`}
-                        alt={`${title} poster image`}
-                    />
-                </div>
+                <div
+                    className={classes.cardImageContainer}
+                    style={cardStyle}
+                ></div>
                 <div className={classes.movieInfo}>
                     <p>
                         <i className="fa-solid fa-star"></i>
