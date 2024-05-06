@@ -3,7 +3,6 @@ import axios from "axios";
 import Header from "../Components/Header";
 import MovieCard from "../Components/MovieCard";
 import classes from "../styles/Home.module.css";
-import BeatLoader from "react-spinners/BeatLoader";
 import { useMovies } from "../Components/MovieProvider";
 import gsap from "gsap";
 
@@ -16,7 +15,6 @@ const Home: React.FC = () => {
         [key: string]: any;
     }
 
-    const [isAPILoading, setIsAPILoading] = useState<boolean>(true);
     const {
         currentDisplay,
         showTV,
@@ -30,12 +28,15 @@ const Home: React.FC = () => {
 
     useEffect(() => {
         const fetchMovies = async () => {
-            setIsAPILoading(true);
-            let url = '';
+            let url = "";
             if (debouncedSearchValue.length < 3) {
-                url = `https://api.themoviedb.org/3/${showTV ? "tv" : "movie"}/popular?language=en-US&page=1`;
+                url = `https://api.themoviedb.org/3/${
+                    showTV ? "tv" : "movie"
+                }/popular?language=en-US&page=1`;
             } else {
-                url = `https://api.themoviedb.org/3/search/${showTV ? "tv" : "movie"}?query=${debouncedSearchValue}&include_adult=false&language=en-US&page=1`;
+                url = `https://api.themoviedb.org/3/search/${
+                    showTV ? "tv" : "movie"
+                }?query=${debouncedSearchValue}&include_adult=false&language=en-US&page=1`;
             }
             try {
                 const options = {
@@ -48,17 +49,19 @@ const Home: React.FC = () => {
                 const response = await axios.get(url, options);
                 setNoResults(response.data.results.length < 1);
                 const top10 = response.data.results.slice(0, 10);
-                setCurrentDisplay(top10.map((item: Item) => ({
-                    ...item,
-                    vote_average: parseFloat(item.vote_average.toFixed(2))
-                })));
+
+                setCurrentDisplay(
+                    top10.map((item: Item) => ({
+                        ...item,
+                        vote_average: parseFloat(item.vote_average.toFixed(2)),
+                    }))
+                );
             } catch (error) {
                 console.error("error:" + error);
             }
-            setIsAPILoading(false);
         };
         fetchMovies();
-    }, [showTV, debouncedSearchValue, setCurrentDisplay]);
+    }, [showTV, debouncedSearchValue]);
 
     const headingRef = useRef(null);
 
@@ -83,24 +86,19 @@ const Home: React.FC = () => {
                     Popular {showTV ? "TV Shows" : "Movies"}
                 </h1>
                 <section className={`${classes.cardContainer}`}>
-                    {isAPILoading ? (
-                        <div className="loader-holder">
-                            <BeatLoader color="#56B4E9" size={15} />
-                        </div>
-                    ) : (
-                        currentDisplay.map((item, index) => (
-                            <MovieCard
-                                key={item.id}
-                                num={index + 1}
-                                src={item.poster_path}
-                                title={showTV ? item.name : item.title}
-                                rating={item.vote_average}
-                                id={item.id}
-                                showTV={showTV}
-                            />
-                        ))
-                    )}
-                    {noResults && !isAPILoading && (
+                    {currentDisplay.map((item, index) => (
+                        <MovieCard
+                            key={item.id}
+                            num={index + 1}
+                            src={item.poster_path}
+                            title={showTV ? item.name : item.title}
+                            rating={item.vote_average}
+                            id={item.id}
+                            showTV={showTV}
+                        />
+                    ))}
+
+                    {noResults && (
                         <p className={classes.noResults}>
                             No results for "{searchValue}"
                         </p>
