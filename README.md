@@ -41,23 +41,17 @@ After installing the dependencies, you can build and run the app.
 
 ### Build
 
-To build the app, use the following command:
+If you choose to build the up use the commad:
 
 ```
 npm run build
 ```
 
-### Navigate
-
-Navigate into the `dist` directory:
-
-```
-cd dist
-```
+build will be avalible at ./dist
 
 ### Run
 
-Run the app using the following command:
+If you choose to run the app in dev mode using the following command:
 
 ```
 npm run dev
