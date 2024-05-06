@@ -1,0 +1,32 @@
+.notFoundContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    height: 100dvh;
+    width: 100dvw;
+    flex-direction: column;
+    gap: 25px;
+    text-align: center;
+    padding: 0px 50px;
+}
+
+.notFoundContainer h1 {
+    font-size: 1.5rem;
+}
+
+.notFoundContainer a {
+    font-size: 1.1rem;
+    text-decoration: underline;
+    padding: 5px;
+    transition: 150ms all ease-in-out;
+}
+
+.notFoundContainer a:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.notFoundIcon {
+    color: rgb(255, 10, 23);
+}

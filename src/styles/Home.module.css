@@ -1,0 +1,20 @@
+.cardContainer {
+    width: 80%;
+    margin: 0px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 50px 20px;
+    justify-content: center;
+}
+
+.noResults {
+    user-select: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    color: var(--text);
+    font-weight: 900;
+    font-size: 1rem;
+    padding: 0px 50px;
+}

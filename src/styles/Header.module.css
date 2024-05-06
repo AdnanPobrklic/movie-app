@@ -1,0 +1,121 @@
+.header {
+    width: 80%;
+    margin: 50px auto 0px auto;
+    opacity: 0;
+}
+
+.navbar ul {
+    display: flex;
+}
+
+.navbar ul li {
+    background-color: var(--foreground);
+    color: var(--text);
+    transition: all 200ms ease-in-out;
+    padding: 7.5px 20px;
+}
+
+.navbar ul li:first-child {
+    border-radius: 5px 0px 0px 5px;
+}
+
+.navbar ul li:nth-child(2) {
+    border-left: 1px solid var(--foreground);
+    border-radius: 0px 5px 5px 0px;
+    font-weight: 500;
+}
+
+.navbar ul li.active {
+    background-color: var(--text);
+    color: var(--foreground);
+}
+
+.navbar ul li:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.searchContainer {
+    min-width: 290px;
+    margin-top: 45px;
+    display: flex;
+    width: 100%;
+}
+
+.searchContainer i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    padding: 15px;
+    color: var(--text);
+    width: 60px;
+    height: 50px;
+    border-radius: 10px 0px 0px 10px;
+    background-color: var(--foreground);
+    transition: all 550ms ease-in-out;
+}
+
+.searchContainer i.inactive {
+    translate: 50px 0px;
+}
+
+.searchContainer input {
+    outline: none;
+    border: none;
+    font-family: "Poppins", Arial, Helvetica, sans-serif;
+    width: calc(100% - 60px);
+    border-radius: 0px 10px 10px 0px;
+    font-size: 1.1rem;
+    padding-left: 15px;
+    background-color: var(--text);
+    -webkit-box-shadow: 1px 1px 26px 1px #eeeeee4d;
+    -moz-box-shadow: 1px 1px 26px 1px #eeeeee4d;
+    box-shadow: 1px 1px 26px 1px #eeeeee4d;
+    transition: 550ms all ease-in-out;
+    height: 50px;
+}
+
+.searchContainer input.active {
+    border-radius: 15px;
+    translate: -60px 0px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .header {
+        width: 90%;
+        margin: 50px auto 0px auto;
+    }
+    .navbar ul li {
+        font-size: 0.9rem;
+    }
+
+    .navbar ul li:hover {
+        opacity: 1;
+    }
+
+    .searchContainer i {
+        font-size: 0.9rem;
+        padding: 10px;
+        width: 50px;
+        height: 50px;
+        border-radius: 5px 0px 0px 5px;
+    }
+
+    .searchContainer i.inactive {
+        translate: 25px 0px;
+    }
+
+    .searchContainer input {
+        width: calc(100% - 50px);
+        font-size: 0.9rem;
+        padding-left: 15px;
+        height: 50px;
+        border-radius: 0px 5px 5px 0px;
+    }
+
+    .searchContainer input.active {
+        translate: -45px 0px;
+    }
+}
