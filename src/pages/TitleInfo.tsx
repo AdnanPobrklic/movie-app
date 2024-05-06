@@ -21,7 +21,7 @@ const MovieInfo: React.FC = () => {
     const [isTrailerLoading, setIsTrailerLoading] = useState(true);
 
     useEffect(() => {
-window.scrollTo(0,0);
+        window.scrollTo(0, 0);
         if (window.innerWidth < 768) setIsMobile(true);
 
         if (titleRef.current) {
@@ -115,7 +115,7 @@ window.scrollTo(0,0);
             {!isTrailerLoading && !trailerUrl ? (
                 <img
                     src={`https://image.tmdb.org/t/p/${
-                        isMobile ? "w500" : "w780"
+                        isMobile ? "w500" : "w1280"
                     }${currentTitle.backdrop_path}`}
                     alt={`${currentTitle.name} banner photo`}
                 />
