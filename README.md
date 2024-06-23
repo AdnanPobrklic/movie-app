@@ -2,16 +2,16 @@
 
 This Movie App is a web application that utilizes data from [The Movie Database (TMDb)](https://www.themoviedb.org/) to provide users with information about movies, TV shows, and more. It incorporates icons from [Flaticon](https://www.flaticon.com) and [Font Awesome](https://fontawesome.com/) to enhance the user interface.
 
+### Live Version
+
+You can access the live version of the app by visiting [this link](https://movie-app-m2ep.onrender.com).
+
 ## Installation
 
 To use the Movie App, you have two options:
 
 1. **Live Version:** Visit the live version of the app.
 2. **Local Installation:** Clone the repository and run it locally on your machine.
-
-### Live Version
-
-You can access the live version of the app by visiting [this link](https://movie-app-m2ep.onrender.com).
 
 ### Local Installation
 
