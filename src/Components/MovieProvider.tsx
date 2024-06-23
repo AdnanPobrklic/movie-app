@@ -36,7 +36,7 @@ export const MovieProvider: React.FC<{ children: ReactNode }> = ({
 
         debounceTimeoutRef.current = setTimeout(() => {
             setDebouncedSearchValue(searchValue);
-        }, 1000); 
+        }, 500); 
 
         return () => {
             if (debounceTimeoutRef.current) {
