@@ -23,7 +23,7 @@ a {
 }
 
 body {
-    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+    font-family: Arial, Helvetica, sans-serif;        
     background-color: var(--background);
 }
 
