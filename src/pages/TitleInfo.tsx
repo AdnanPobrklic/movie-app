@@ -130,7 +130,7 @@ const MovieInfo: React.FC = () => {
                 ></iframe>
             )}
             <h1>{currentTitle.name || currentTitle.title}</h1>
-            <p>{currentTitle.overview}</p>
+            <p>{currentTitle.overview ? currentTitle.overview : "No description avalible"}</p>
         </main>
     ) : (
         <div>
